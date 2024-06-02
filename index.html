@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+</head>
+<body>
+    <h1>BMI Calculator</h1>
+    <label for="name">Name:</label>
+    <input type="text" id="name">
+    <br>
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob">
+    <br>
+    <label for="height">Height (m):</label>
+    <input type="number" id="height" step="0.01">
+    <br>
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight">
+    <br>
+    <button onclick="calculateBMI()">Calculate</button>
+    <p id="result"></p>
+
+    <script>
+function calculateBMI() {
+const name = document.getElementById('name').value;
+const dob = document.getElementById('dob').value;
+const height = parseFloat(document.getElementById('height').value);
+const weight = parseFloat(document.getElementById('weight').value);
+
+const bmi = weight / (height * height);
+
+let result = '';
+if (bmi < 18.5) {
+result = 'Underweight';
+} else if (bmi >= 18.5 && bmi < 25) {
+result = 'Normal weight';
+} else if (bmi >= 25 && bmi < 30) {
+result = 'Overweight';
+} else {
+result = 'Obese';
+}
+
+document.getElementById('result').innerText = `${name}, Age: ${calculateAge(dob)}, BMI: ${bmi.toFixed(2)}, Result: ${result}`;
+}
+
+function calculateAge(dob) {
+const today = new Date();
+const birthDate = new Date(dob);
+let age = today.getFullYear() - birthDate.getFullYear();
+const month = today.getMonth() - birthDate.getMonth();
+if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+age--;
+}
+return age;
+}
+    </script>
+</body>
+</html>
